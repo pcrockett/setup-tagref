@@ -18,7 +18,7 @@ runs:
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6.1.0
       with:
         path: ~/.cache/setup-tagref
-        key: setup-tagref-1|${{ inputs.version }}|${{ inputs.checksum }}
+        key: setup-tagref-2|${{ inputs.version }}|${{ inputs.checksum }}
 
     - name: Download tagref
       if: steps.cache.outputs.cache-hit != 'true'
@@ -39,7 +39,6 @@ runs:
         install_dir=~/.local/bin
         mkdir -p "${install_dir}"
         cd ~/.cache/setup-tagref
-        mv artifact tagref
-        chmod +x tagref
-        mv tagref "${install_dir}"
+        chmod +x artifact
+        cp artifact "${install_dir}/tagref"
         echo "${install_dir}" >>"${GITHUB_PATH}"
