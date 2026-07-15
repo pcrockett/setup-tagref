@@ -1,0 +1,11 @@
+_commit: 23c8344
+_src_path: gh:pcrockett/template-setup-action
+action_description: Installs Tagref in your GitHub workflows
+action_human_friendly_name: Setup Tagref
+action_name: setup-tagref
+github_org: pcrockett
+tool_doc_url: https://github.com/stepchowfun/tagref
+tool_download_url: https://github.com/stepchowfun/tagref/releases/download/v${VERSION}/tagref-x86_64-unknown-linux-musl
+tool_latest_checksum: 59b62982784ea3f54fa8dd5869ff7bb9cff8adec7b7ab6315ae5110102e3bc7e
+tool_latest_version: 1.13.0
+tool_name: tagref

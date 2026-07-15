@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://www.schemastore.org/github-action.json
+
+name: 'Setup Tagref'
+description: 'Installs Tagref in your GitHub workflows'
+inputs:
+  version:
+    description: 'Version to install, ex: 1.13.0'
+    default: '1.13.0'
+  checksum:
+    description: 'SHA256 checksum of download artifact'
+    default: '59b62982784ea3f54fa8dd5869ff7bb9cff8adec7b7ab6315ae5110102e3bc7e'
+
+runs:
+  using: "composite"
+  steps:
+    - id: cache
+      name: Cache
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6.1.0
+      with:
+        path: ~/.cache/setup-tagref
+        key: setup-tagref-1|${{ inputs.version }}|${{ inputs.checksum }}
+
+    - name: Download tagref
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        VERSION: ${{ inputs.version }}
+        CHECKSUM: ${{ inputs.checksum }}
+      run: |
+        mkdir -p ~/.cache/setup-tagref
+        "${GITHUB_ACTION_PATH}/download-artifact.sh" \
+          "https://github.com/stepchowfun/tagref/releases/download/v${VERSION}/tagref-x86_64-unknown-linux-musl" \
+          ~/.cache/setup-tagref/artifact \
+          "${CHECKSUM}"
+
+    - name: Install tagref
+      shell: bash
+      run: |
+        install_dir=~/.local/bin
+        mkdir -p "${install_dir}"
+        cd ~/.cache/setup-tagref
+        mv artifact tagref
+        chmod +x tagref
+        mv tagref "${install_dir}"
+        echo "${install_dir}" >>"${GITHUB_PATH}"
