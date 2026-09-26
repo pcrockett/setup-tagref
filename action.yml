@@ -5,10 +5,10 @@ description: 'Installs Tagref in your GitHub workflows'
 inputs:
   version:
     description: 'Version to install, ex: 1.13.0'
-    default: '1.13.0'
+    default: '1.14.0'
   checksum:
     description: 'SHA256 checksum of download artifact'
-    default: '59b62982784ea3f54fa8dd5869ff7bb9cff8adec7b7ab6315ae5110102e3bc7e'
+    default: '8889b8ce15c4e6dbafe36660723602e3a2a4ba0c5b7ffbd7b9167451fceef8c4'
 
 runs:
   using: "composite"
